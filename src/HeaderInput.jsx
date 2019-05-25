@@ -25,8 +25,7 @@ const SubmitButton = styled.button`
 `;
 
 const mapDispatchToProps = dispatch => ({
-  sendResponse: payload => dispatch(sendResponse(payload)),
-  bla: () => dispatch(getResponses())
+  sendResponse: payload => dispatch(sendResponse(payload))
 });
 
 class HeaderInput extends React.Component {
@@ -43,14 +42,16 @@ class HeaderInput extends React.Component {
       navigator.geolocation.getCurrentPosition(({ coords }) => {
         this.setState({ lat: coords.latitude, lon: coords.longitude }, () => {
           this.props.sendResponse(this.state);
+          this.setState({
+            name: "",
+            text: "",
+            lat: 0,
+            lon: 0
+          });
         });
       });
     }
   };
-
-  async componentDidMount() {
-    await this.props.bla();
-  }
 
   render() {
     return (

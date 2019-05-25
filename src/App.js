@@ -1,15 +1,30 @@
-import React from 'react';
-import './App.css';
-import Header from "./HeaderInput"
-import Container from "./Container"
+import React from "react";
+import "./App.css";
+import Header from "./HeaderInput";
+import Container from "./Container";
+import { getResponses } from "./store";
+import { connect } from "react-redux";
 
-function App() {
-  return (
-    <div className="App">
-      <Header />
-      <Container/>
-    </div>
-  );
+const mapDispatchToProps = dispatch => ({
+  loadResponses: () => dispatch(getResponses())
+});
+
+class App extends React.Component {
+  async componentDidMount() {
+    await this.props.loadResponses();
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Header />
+        <Container />
+      </div>
+    );
+  }
 }
 
-export default App;
+export default connect(
+  null,
+  mapDispatchToProps
+)(App);

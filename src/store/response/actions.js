@@ -12,10 +12,10 @@ export const getResponses = () => async dispatch => {
   }
 };
 
-export const sendResponse = payload => async () => {
+export const sendResponse = payload => async dispatch => {
   try {
     await postRequest("/freedom-response", payload);
-    getResponses();
+    dispatch(getResponses());
   } catch (error) {
     console.error(error);
   }
