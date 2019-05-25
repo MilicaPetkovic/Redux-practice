@@ -1,7 +1,7 @@
 import React from "react";
 import sky from "./1.png";
 import styled from "styled-components";
-import { sendResponse } from "./store";
+import { sendResponse, getResponses } from "./store";
 import { connect } from "react-redux";
 
 const Form = styled.form`
@@ -25,7 +25,8 @@ const SubmitButton = styled.button`
 `;
 
 const mapDispatchToProps = dispatch => ({
-  sendResponse: payload => dispatch(sendResponse(payload))
+  sendResponse: payload => dispatch(sendResponse(payload)),
+  bla: () => dispatch(getResponses())
 });
 
 class HeaderInput extends React.Component {
@@ -40,6 +41,10 @@ class HeaderInput extends React.Component {
     e.preventDefault();
     this.props.sendResponse(this.state);
   };
+
+  async componentDidMount() {
+    await this.props.bla();
+  }
 
   render() {
     return (
