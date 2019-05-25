@@ -39,7 +39,13 @@ class HeaderInput extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.sendResponse(this.state);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
+        this.setState({ lat: coords.latitude, lon: coords.longitude }, () => {
+          this.props.sendResponse(this.state);
+        });
+      });
+    }
   };
 
   async componentDidMount() {

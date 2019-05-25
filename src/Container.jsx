@@ -1,25 +1,35 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import { connect } from "react-redux";
+import moment from "moment";
+
+const mapStateToProps = state => ({
+  responses: state.responses
+});
 
 class Container extends Component {
   render() {
+    console.log(this.props.responses);
     return (
-    <div style={{height: "100vh", textAlign: "center"}}>
-      <p>25.5.2017 New York</p>
-      <h3><span> For </span> David <span>freedom</span> is the ability to find peace inward.</h3>
-      <hr/>
-      <p>25.5.2017 New York</p>
-      <h3><span> For </span> David <span>freedom</span> is the ability to find peace inward.</h3>
-      <hr/>
-      <p>25.5.2017 New York</p>
-      <h3><span> For </span> David <span>freedom</span> is the ability to find peace inward.</h3>
-      <hr/>
-      <p>25.5.2017 New York</p>
-      <h3><span> For </span> David <span>freedom</span> is the ability to find peace inward.</h3>
-      <hr/>
-    </div>
-  )
+      <div style={{ height: "100vh", textAlign: "center" }}>
+        {this.props.responses.map(response => {
+          return (
+            <div key={response.id}>
+              <p>{moment(response.created).fromNow()} New York</p>
+              <h3>
+                <span> For </span> {response.name} <span>freedom</span> is{" "}
+                {response.text}
+              </h3>
+              <hr />
+            </div>
+          );
+        })}
+      </div>
+    );
   }
 }
 
-export default Container;
+export default connect(
+  mapStateToProps,
+  null
+)(Container);
