@@ -5,7 +5,7 @@ export const setResponses = createAction("SET_RESPONSES");
 
 export const getResponses = () => async dispatch => {
   try {
-    const res = await getRequest("/freedom-response");
+    const res = await getRequest("/freedom-response?sort=created,DESC");
     dispatch(setResponses(res));
   } catch (error) {
     console.error(error);
